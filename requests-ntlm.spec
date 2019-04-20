@@ -4,7 +4,7 @@
 #
 Name     : requests-ntlm
 Version  : 1.1.0
-Release  : 3
+Release  : 4
 URL      : https://github.com/requests/requests-ntlm/archive/v1.1.0.tar.gz
 Source0  : https://github.com/requests/requests-ntlm/archive/v1.1.0.tar.gz
 Summary  : No detailed summary available
