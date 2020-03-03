@@ -4,28 +4,27 @@
 #
 Name     : requests-ntlm
 Version  : 1.1.0
-Release  : 8
+Release  : 9
 URL      : https://github.com/requests/requests-ntlm/archive/v1.1.0.tar.gz
 Source0  : https://github.com/requests/requests-ntlm/archive/v1.1.0.tar.gz
-Summary  : No detailed summary available
+Summary  : This package allows for HTTP NTLM authentication using the requests library.
 Group    : Development/Tools
 License  : ISC
-Requires: requests-ntlm-python3
-Requires: requests-ntlm-license
-Requires: requests-ntlm-python
+Requires: requests-ntlm-license = %{version}-%{release}
+Requires: requests-ntlm-python = %{version}-%{release}
+Requires: requests-ntlm-python3 = %{version}-%{release}
+Requires: Flask
 Requires: cryptography
 Requires: ntlm-auth
 Requires: requests
+BuildRequires : Flask
 BuildRequires : buildreq-distutils3
 BuildRequires : cryptography
 BuildRequires : ntlm-auth
 BuildRequires : requests
 
 %description
-requests-ntlm
-=============
-.. image:: https://travis-ci.org/requests/requests-ntlm.svg?branch=master
-:target: https://travis-ci.org/requests/requests-ntlm
+UNKNOWN
 
 %package license
 Summary: license components for the requests-ntlm package.
@@ -38,7 +37,7 @@ license components for the requests-ntlm package.
 %package python
 Summary: python components for the requests-ntlm package.
 Group: Default
-Requires: requests-ntlm-python3
+Requires: requests-ntlm-python3 = %{version}-%{release}
 
 %description python
 python components for the requests-ntlm package.
@@ -48,6 +47,7 @@ python components for the requests-ntlm package.
 Summary: python3 components for the requests-ntlm package.
 Group: Default
 Requires: python3-core
+Provides: pypi(requests_ntlm)
 
 %description python3
 python3 components for the requests-ntlm package.
@@ -55,20 +55,29 @@ python3 components for the requests-ntlm package.
 
 %prep
 %setup -q -n requests-ntlm-1.1.0
+cd %{_builddir}/requests-ntlm-1.1.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1534442724
-python3 setup.py build -b py3
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1583219537
+# -Werror is for werrorists
+export GCC_IGNORE_WERROR=1
+export CFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$CFLAGS -fno-lto "
+export FFLAGS="$CFLAGS -fno-lto "
+export CXXFLAGS="$CXXFLAGS -fno-lto "
+export MAKEFLAGS=%{?_smp_mflags}
+python3 setup.py build
 
 %install
+export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/doc/requests-ntlm
-cp LICENSE %{buildroot}/usr/share/doc/requests-ntlm/LICENSE
-python3 -tt setup.py build -b py3 install --root=%{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/requests-ntlm
+cp %{_builddir}/requests-ntlm-1.1.0/LICENSE %{buildroot}/usr/share/package-licenses/requests-ntlm/9d90e81066c81e2158e11b817c4594ef68494e89
+python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
 echo ----[ mark ]----
@@ -77,8 +86,8 @@ echo ----[ mark ]----
 %defattr(-,root,root,-)
 
 %files license
-%defattr(-,root,root,-)
-/usr/share/doc/requests-ntlm/LICENSE
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/requests-ntlm/9d90e81066c81e2158e11b817c4594ef68494e89
 
 %files python
 %defattr(-,root,root,-)
