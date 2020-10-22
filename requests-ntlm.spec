@@ -4,7 +4,7 @@
 #
 Name     : requests-ntlm
 Version  : 1.1.0
-Release  : 10
+Release  : 11
 URL      : https://github.com/requests/requests-ntlm/archive/v1.1.0.tar.gz
 Source0  : https://github.com/requests/requests-ntlm/archive/v1.1.0.tar.gz
 Summary  : This package allows for HTTP NTLM authentication using the requests library.
@@ -24,7 +24,10 @@ BuildRequires : ntlm-auth
 BuildRequires : requests
 
 %description
-UNKNOWN
+requests-ntlm
+=============
+.. image:: https://travis-ci.org/requests/requests-ntlm.svg?branch=master
+:target: https://travis-ci.org/requests/requests-ntlm
 
 %package license
 Summary: license components for the requests-ntlm package.
@@ -48,6 +51,9 @@ Summary: python3 components for the requests-ntlm package.
 Group: Default
 Requires: python3-core
 Provides: pypi(requests_ntlm)
+Requires: pypi(cryptography)
+Requires: pypi(ntlm_auth)
+Requires: pypi(requests)
 
 %description python3
 python3 components for the requests-ntlm package.
@@ -62,12 +68,11 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1583219537
-# -Werror is for werrorists
+export SOURCE_DATE_EPOCH=1603403418
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
-export FCFLAGS="$CFLAGS -fno-lto "
-export FFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$FFLAGS -fno-lto "
+export FFLAGS="$FFLAGS -fno-lto "
 export CXXFLAGS="$CXXFLAGS -fno-lto "
 export MAKEFLAGS=%{?_smp_mflags}
 python3 setup.py build
