@@ -4,7 +4,7 @@
 #
 Name     : requests-ntlm
 Version  : 1.1.0
-Release  : 23
+Release  : 24
 URL      : https://github.com/requests/requests-ntlm/archive/v1.1.0.tar.gz
 Source0  : https://github.com/requests/requests-ntlm/archive/v1.1.0.tar.gz
 Summary  : This package allows for HTTP NTLM authentication using the requests library.
@@ -13,15 +13,12 @@ License  : ISC
 Requires: requests-ntlm-license = %{version}-%{release}
 Requires: requests-ntlm-python = %{version}-%{release}
 Requires: requests-ntlm-python3 = %{version}-%{release}
-Requires: Flask
-Requires: cryptography
-Requires: ntlm-auth
-Requires: requests
-BuildRequires : Flask
 BuildRequires : buildreq-distutils3
-BuildRequires : cryptography
-BuildRequires : ntlm-auth
-BuildRequires : requests
+BuildRequires : pypi(cryptography)
+BuildRequires : pypi(flask)
+BuildRequires : pypi(ntlm_auth)
+BuildRequires : pypi(requests)
+BuildRequires : pypi(wheel)
 
 %description
 requests-ntlm
@@ -52,8 +49,10 @@ Group: Default
 Requires: python3-core
 Provides: pypi(requests_ntlm)
 Requires: pypi(cryptography)
+Requires: pypi(flask)
 Requires: pypi(ntlm_auth)
 Requires: pypi(requests)
+Requires: pypi(wheel)
 
 %description python3
 python3 components for the requests-ntlm package.
@@ -68,7 +67,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1603403418
+export SOURCE_DATE_EPOCH=1641680445
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$FFLAGS -fno-lto "
