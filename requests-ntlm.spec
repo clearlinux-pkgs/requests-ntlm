@@ -7,7 +7,7 @@
 #
 Name     : requests-ntlm
 Version  : 1.2.0
-Release  : 27
+Release  : 28
 URL      : https://github.com/requests/requests-ntlm/archive/v1.2.0/requests-ntlm-1.2.0.tar.gz
 Source0  : https://github.com/requests/requests-ntlm/archive/v1.2.0/requests-ntlm-1.2.0.tar.gz
 Summary  : This package allows for HTTP NTLM authentication using the requests library.
